@@ -1,3 +1,48 @@
 html, body {
     margin: 0;
 }
+
+/*********** 
+  Typography
+ ********** */
+
+
+/*********** 
+   Styling
+ ***********/
+
+ body{
+    background-color: #1b0606;
+    color: #fff;
+ }
+
+h1, h2 {
+    margin: 0;
+    padding: 0;
+}
+
+ .container {
+    border: 1px solid red;
+    max-width: 390px;
+    margin: 0 auto;
+    text-align: center;
+ }
+
+ .endorsement-section{
+    border: 1px solid yellow;
+    max-width: 320px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+ }
+
+ .img-icon {
+    max-width: 90px;
+    margin: 0 auto;
+ }
+
+ .endorsement-field, .publish-btn {
+    border: 1px red solid;
+    margin: 0 20px;
+ }
