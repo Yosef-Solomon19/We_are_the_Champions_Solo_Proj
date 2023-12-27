@@ -21,28 +21,31 @@ h1, h2 {
     padding: 0;
 }
 
- .container {
-    border: 1px solid red;
-    max-width: 390px;
-    margin: 0 auto;
-    text-align: center;
+.container {
+   border: 1px solid red;
+   max-width: 390px;
+   margin: 0 auto;
+   text-align: center;
  }
 
- .endorsement-section{
-    border: 1px solid yellow;
-    max-width: 320px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-
- }
-
- .img-icon {
-    max-width: 90px;
-    margin: 0 auto;
- }
+.endorsement-section{
+   border: 1px solid yellow;
+   max-width: 320px;
+   margin: 0 auto;
+   display: flex;
+   flex-direction: column;
+}
 
  .endorsement-field, .publish-btn {
-    border: 1px red solid;
-    margin: 0 20px;
- }
+   border: 1px red solid;
+   margin: 0 20px;
+}
+.endorsement-field {
+   text-align: center;
+}
+
+.img-icon {
+   max-width: 90px;
+   margin: 0 auto;
+}
+
