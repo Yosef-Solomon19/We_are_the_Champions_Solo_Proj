@@ -15,7 +15,7 @@ html, body {
  ***********/
 
  body{
-    background-color: #1b0606;
+    background-color: #39198f;
     color: #fff;
  }
 
@@ -44,7 +44,17 @@ h1, h2 {
    margin: 0 20px;
 }
 .endorsement-field {
-   text-align: center;
+   vertical-align: top;
+   padding: 5px 10px 100px 10px;
+   margin-bottom: 10px;
+   max-width: 320px;
+   height: 20px;
+   resize: none;
+   overflow: hidden;
+}
+
+.publish-btn {
+   padding: 15px;
 }
 
 .img-icon {
