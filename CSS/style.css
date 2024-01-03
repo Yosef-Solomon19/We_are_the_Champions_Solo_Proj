@@ -8,6 +8,20 @@ html, body {
 /*********** 
   Typography
  ********** */
+ .title {
+   font-family: 'Josefin Sans', sans-serif;
+   font-weight: 700;
+   font-size: 25px;
+ }
+ .endorsement-field {
+   font-family: 'Inter', sans-serif;
+ }
+
+ .publish-btn {
+   font-family: 'Josefin Sans', sans-serif;
+   font-weight: 700;
+   font-size: 22px;
+ }
 
 
 /*********** 
@@ -15,24 +29,30 @@ html, body {
  ***********/
 
  body{
-    background-color: #39198f;
-    color: #fff;
+   background-color: #39198f;
+   color: #fff;
  }
 
 h1, h2 {
-    margin: 0;
-    padding: 0;
+   margin: 0;
+   padding: 0;
 }
 
 .container {
    border: 1px solid red;
    max-width: 390px;
    margin: 0 auto;
+   margin-top: 25px;
    text-align: center;
  }
 
+ .title {
+   margin-bottom: 15px;
+   margin-top: 20px;
+ }
+
 .endorsement-section{
-   border: 1px solid yellow;
+   /* border: 1px solid yellow; */
    max-width: 320px;
    margin: 0 auto;
    display: flex;
@@ -40,21 +60,28 @@ h1, h2 {
 }
 
  .endorsement-field, .publish-btn {
-   border: 1px red solid;
+   /* border: 1px red solid; */
    margin: 0 20px;
+   border-radius: 8px;
+   border: none;
 }
 .endorsement-field {
    vertical-align: top;
    padding: 5px 10px 100px 10px;
    margin-bottom: 10px;
-   max-width: 320px;
+   max-width: 300px;
    height: 20px;
+   margin: 0 auto;
    resize: none;
    overflow: hidden;
+   background-color: #444059;
+   color: #fff;
 }
 
 .publish-btn {
+   margin: 10px 0;
    padding: 15px;
+   background-color: #28A9F1;
 }
 
 .img-icon {
