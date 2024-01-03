@@ -78,7 +78,7 @@ h1, h2 {
   vertical-align: top;
   padding: 5px 10px 100px 10px;
   margin-bottom: 10px;
-  max-width: 300px;
+  width: 94%;
   height: 20px;
   margin: 0 auto;
   resize: none;
