@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const textAreaEL = document.querySelector("#textarea-el")
 const publishBtnEl = document.querySelector("#btn-el")
