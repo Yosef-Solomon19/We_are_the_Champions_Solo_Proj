@@ -36,7 +36,7 @@ html, body {
  ***********/
 
 body{
-  background-color: #39198f;
+  background-color: #1B1924;
   color: #fff;
 }
 
@@ -91,6 +91,8 @@ h1, h2 {
   margin: 10px 0 20px;
   padding: 15px;
   background-color: #28A9F1;
+  cursor: pointer;
+
 }
 
 .img-icon {
@@ -106,7 +108,9 @@ h1, h2 {
 .endorsement-list li {
   color: #1B1924;
   background-color: #FFFFFF;
+  margin-bottom: 13px;
   padding: 13px 15px;
   list-style-type: none;
+  text-align: left;
 
 }
