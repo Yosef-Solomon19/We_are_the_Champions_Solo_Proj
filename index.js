@@ -24,12 +24,16 @@ publishBtnEl.addEventListener("click", function(){
     let inputValue = textAreaEL.value
     push(endorsementsinDB, inputValue)
     clearInputField(textAreaEL)
-    appendItemToListEl(inputValue)
+    // appendItemToListEl(inputValue)
 })
 
 onValue(endorsementsinDB, function(snapshot) {
+    endorsementListEl.value = ""
     let itemArr = Object.values(snapshot.val())
-    console.log(itemArr)
+    // console.log(itemArr)
+    for (let i =0; i<itemArr.length; i++) {
+        appendItemToListEl(itemArr[i])
+    }
 })
 
 function test() {
