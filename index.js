@@ -18,13 +18,18 @@ const app = initializeApp(appSettings)
 const database = getDatabase(app)
 
 // Create reference, a location inside the database to store our data (endorsements)
-const endorsementinDB = ref(database, "endorsements")
+const endorsementsinDB = ref(database, "endorsements")
 
 publishBtnEl.addEventListener("click", function(){
     let inputValue = textAreaEL.value
-    push(endorsementinDB, inputValue)
+    push(endorsementsinDB, inputValue)
     clearInputField(textAreaEL)
     appendItemToListEl(inputValue)
+})
+
+onValue(endorsementsinDB, function(snapshot) {
+    let itemArr = Object.values(snapshot.val())
+    console.log(itemArr)
 })
 
 function test() {
@@ -40,3 +45,4 @@ function appendItemToListEl(item) {
     createLi.textContent= item
     endorsementListEl.append(createLi)
 }
+
