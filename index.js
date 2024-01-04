@@ -5,6 +5,7 @@ import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com
 
 const textAreaEL = document.querySelector("#textarea-el")
 const publishBtnEl = document.querySelector("#btn-el")
+const endorsementListEl = document.querySelector("#endorsement-list")
 
 const appSettings = {
     databaseURL: "https://endorsement-app-78f29-default-rtdb.firebaseio.com/"
@@ -20,9 +21,10 @@ const database = getDatabase(app)
 const endorsementinDB = ref(database, "endorsements")
 
 publishBtnEl.addEventListener("click", function(){
-    test()
-    console.log(textAreaEL.value)
+    let inputValue = textAreaEL.value
+    push(endorsementinDB, inputValue)
     clearInputField(textAreaEL)
+    appendItemToListEl(inputValue)
 })
 
 function test() {
@@ -31,4 +33,10 @@ function test() {
 
 function clearInputField(inputEl) {
     inputEl.value =""
+}
+
+function appendItemToListEl(item) {
+    const createLi = document.createElement("li")
+    createLi.textContent=`item`
+    createLi.append(endorsementListEl)
 }
