@@ -5,7 +5,7 @@ import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com
 
 const textAreaEL = document.querySelector("#textarea-el")
 const publishBtnEl = document.querySelector("#btn-el")
-const endorsementListEl = document.querySelector("#endorsement-list")
+const endorsementListEl = document.querySelector("#endorsement-listing")
 
 const appSettings = {
     databaseURL: "https://endorsement-app-78f29-default-rtdb.firebaseio.com/"
@@ -37,6 +37,6 @@ function clearInputField(inputEl) {
 
 function appendItemToListEl(item) {
     const createLi = document.createElement("li")
-    createLi.textContent=`item`
-    createLi.append(endorsementListEl)
+    createLi.textContent= item
+    endorsementListEl.append(createLi)
 }
