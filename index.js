@@ -31,6 +31,8 @@ onValue(endorsementsinDB, function(snapshot) {
     if (snapshot.exists())
     {
         let itemArr = Object.entries(snapshot.val())
+        // Reverse itemArr
+        itemArr.reverse()
         clearEndorsementListEl()
         // console.log(itemArr)
         for (let i = 0; i<itemArr.length; i++) {
@@ -57,11 +59,12 @@ function clearInputField(inputEl) {
 
 function appendItemToListEl(item) {
     let itemID = item[0]
+    
     let itemValue = item[1]
     const createLi = document.createElement("li")
     createLi.textContent= itemValue
 
-    createLi.addEventListener("click", function(){
+    createLi.addEventListener("dblclick", function(){
         let exactLocationOfItemInDB = ref(database, `endorsements/${itemID}`)
         remove(exactLocationOfItemInDB)
     })
