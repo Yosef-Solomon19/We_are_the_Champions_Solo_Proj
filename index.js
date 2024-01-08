@@ -28,14 +28,20 @@ publishBtnEl.addEventListener("click", function(){
 })
 
 onValue(endorsementsinDB, function(snapshot) {
-    let itemArr = Object.entries(snapshot.val())
-    clearEndorsementListEl()
-    // console.log(itemArr)
-    for (let i = 0; i<itemArr.length; i++) {
-        let currentItem = itemArr[i];
-        let currentID = currentItem[0]
-        let currentValue = currentItem[1]
-        appendItemToListEl(currentValue)
+    if (snapshot.exists())
+    {
+        let itemArr = Object.entries(snapshot.val())
+        clearEndorsementListEl()
+        // console.log(itemArr)
+        for (let i = 0; i<itemArr.length; i++) {
+            let currentItem = itemArr[i];
+            let currentID = currentItem[0]
+            let currentValue = currentItem[1]
+            appendItemToListEl(currentItem)
+        }
+
+    } else {
+        endorsementListEl.innerHTML = `<li>No endorsements yet...<li>`
     }
 })
 function clearEndorsementListEl() {
@@ -50,8 +56,15 @@ function clearInputField(inputEl) {
 }
 
 function appendItemToListEl(item) {
+    let itemID = item[0]
+    let itemValue = item[1]
     const createLi = document.createElement("li")
-    createLi.textContent= item
+    createLi.textContent= itemValue
+
+    createLi.addEventListener("click", function(){
+        let exactLocationOfItemInDB = ref(database, `endorsements/${itemID}`)
+        remove(exactLocationOfItemInDB)
+    })
     endorsementListEl.append(createLi)
 }
 
