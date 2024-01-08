@@ -28,14 +28,19 @@ publishBtnEl.addEventListener("click", function(){
 })
 
 onValue(endorsementsinDB, function(snapshot) {
-    endorsementListEl.value = ""
-    let itemArr = Object.values(snapshot.val())
+    let itemArr = Object.entries(snapshot.val())
+    clearEndorsementListEl()
     // console.log(itemArr)
-    for (let i =0; i<itemArr.length; i++) {
-        appendItemToListEl(itemArr[i])
+    for (let i = 0; i<itemArr.length; i++) {
+        let currentItem = itemArr[i];
+        let currentID = currentItem[0]
+        let currentValue = currentItem[1]
+        appendItemToListEl(currentValue)
     }
 })
-
+function clearEndorsementListEl() {
+    endorsementListEl.innerHTML = ""
+}
 function test() {
    console.log("clicked")
 }
