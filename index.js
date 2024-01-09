@@ -6,6 +6,8 @@ import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com
 const textAreaEL = document.querySelector("#textarea-el")
 const publishBtnEl = document.querySelector("#btn-el")
 const endorsementListEl = document.querySelector("#endorsement-listing")
+const endorsementSenderEl = document.querySelector("#endorsement-sender")
+const endorsementReceiverEl = document.querySelector("#endorsement-receiver")
 
 const appSettings = {
     databaseURL: "https://endorsement-app-78f29-default-rtdb.firebaseio.com/"
@@ -32,7 +34,7 @@ onValue(endorsementsinDB, function(snapshot) {
     {
         let itemArr = Object.entries(snapshot.val())
         // Reverse order of items in itemArr
-        itemArr.reverse()
+        // itemArr.reverse()
         clearEndorsementListEl()
         // console.log(itemArr)
         for (let i = 0; i<itemArr.length; i++) {
@@ -49,9 +51,7 @@ onValue(endorsementsinDB, function(snapshot) {
 function clearEndorsementListEl() {
     endorsementListEl.innerHTML = ""
 }
-function test() {
-   console.log("clicked")
-}
+
 
 function clearInputField(inputEl) {
     inputEl.value =""
