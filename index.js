@@ -24,6 +24,10 @@ const endorsementsinDB = ref(database, "endorsements")
 
 publishBtnEl.addEventListener("click", function(){
     let inputValue = textAreaEL.value
+    let receiver = endorsementReceiverEl.value
+    let sender = endorsementSenderEl.value
+    console.log(endorsementDictionary(sender, receiver))
+
     push(endorsementsinDB, inputValue)
     clearInputField(textAreaEL)
     // appendItemToListEl(inputValue)
@@ -50,6 +54,14 @@ onValue(endorsementsinDB, function(snapshot) {
 })
 function clearEndorsementListEl() {
     endorsementListEl.innerHTML = ""
+    endorsementSenderEl.innerHTML = ""
+    endorsementReceiverEl.innerHTML = ""
+}
+function endorsementDictionary(from, to) {
+    let endorsement = {}
+    endorsement.sender = from
+    endorsement.receiver = to
+    return endorsement
 }
 
 
