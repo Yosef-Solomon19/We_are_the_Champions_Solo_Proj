@@ -31,7 +31,7 @@ onValue(endorsementsinDB, function(snapshot) {
     if (snapshot.exists())
     {
         let itemArr = Object.entries(snapshot.val())
-        // Reverse itemArr
+        // Reverse order of items in itemArr
         itemArr.reverse()
         clearEndorsementListEl()
         // console.log(itemArr)
