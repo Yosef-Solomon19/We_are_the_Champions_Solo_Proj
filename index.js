@@ -26,9 +26,11 @@ publishBtnEl.addEventListener("click", function(){
     let inputValue = textAreaEL.value
     let receiver = endorsementReceiverEl.value
     let sender = endorsementSenderEl.value
-    console.log(endorsementDictionary(sender, receiver))
+    let userNameWithMessage = endorsementDictionary(sender, receiver, inputValue)
+    console.log(userNameWithMessage)
+    // console.log(endorsementDictionary(sender, receiver))
 
-    push(endorsementsinDB, inputValue)
+    push(endorsementsinDB, userNameWithMessage)
     clearInputField(textAreaEL)
     // appendItemToListEl(inputValue)
 })
@@ -37,15 +39,25 @@ onValue(endorsementsinDB, function(snapshot) {
     if (snapshot.exists())
     {
         let itemArr = Object.entries(snapshot.val())
+        console.log(itemArr)
         // Reverse order of items in itemArr
         // itemArr.reverse()
         clearEndorsementListEl()
         // console.log(itemArr)
         for (let i = 0; i<itemArr.length; i++) {
-            let currentItem = itemArr[i];
-            let currentID = currentItem[0]
-            let currentValue = currentItem[1]
-            appendItemToListEl(currentItem)
+            let currentItem= itemArr[i];
+            
+            let currentItemID = itemArr[i][0];
+            
+            let dictToArr = Object.entries( itemArr[i][1])
+            console.log(dictToArr)
+            let currentMessage = dictToArr[1][1];
+            
+            let fromUser = dictToArr[0][1];
+            
+            let toUser = dictToArr[2][1];
+            
+            appendItemToListEl(currentItemID, currentMessage, fromUser,toUser) 
         }
 
     } else {
@@ -54,25 +66,28 @@ onValue(endorsementsinDB, function(snapshot) {
 })
 function clearEndorsementListEl() {
     endorsementListEl.innerHTML = ""
-    endorsementSenderEl.innerHTML = ""
-    endorsementReceiverEl.innerHTML = ""
 }
-function endorsementDictionary(from, to) {
+function endorsementDictionary(from, to, message) {
     let endorsement = {}
-    endorsement.sender = from
-    endorsement.receiver = to
+    endorsement.Message = message
+    endorsement.To = to
+    endorsement.From = from    
     return endorsement
 }
 
 
 function clearInputField(inputEl) {
     inputEl.value =""
+    endorsementSenderEl.value= ""
+    endorsementReceiverEl.value = ""
 }
+// appendItemToListEl(currentItemID, currentMessage, fromUser,toUser) 
+function appendItemToListEl(currentID, message, from, to) {
+    let itemID = currentID   
+    let itemValue = message
+    let userSendingEndorsement = from
+    let userReceivingEndorsement = to
 
-function appendItemToListEl(item) {
-    let itemID = item[0]
-    
-    let itemValue = item[1]
     const createLi = document.createElement("li")
     createLi.textContent= itemValue
 
