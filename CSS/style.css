@@ -154,17 +154,21 @@ h1, h2, p{
 /*********** 
    Utility
  ***********/
+
+
  .margin-btm {
   margin-bottom: 12px;
  }
 .margin-top {
   margin-top: 8px;
+  width: 125px;
+  
 }
 
 .add-like-style {
   cursor: pointer;
-  position: fixed;
-  margin-left: 185px;
-
-  
+  display: inline;
+  align-items: end;
+  text-align: end;
+  vertical-align: end;
 }
