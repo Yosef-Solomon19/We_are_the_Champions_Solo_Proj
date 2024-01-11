@@ -107,3 +107,18 @@ function appendItemToListEl(currentID, message, from, to) {
     endorsementListEl.append(createLi)
 }
 
+function addLikeEl() {
+    const spanEl = document.createElement("span")
+    spanEl.classList=".add-like-style"
+    spanEl.textContent = "❤"
+
+    spanEl.addEventListener("click", function(){
+
+    })
+}
+
+function addLikeCounter() {
+    let counter = 0
+    
+
+}
