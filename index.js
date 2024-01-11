@@ -26,11 +26,11 @@ publishBtnEl.addEventListener("click", function(){
     let inputValue = textAreaEL.value
     let receiver = endorsementReceiverEl.value
     let sender = endorsementSenderEl.value
-    let userNameWithMessage = endorsementDictionary(sender, receiver, inputValue)
-    console.log(userNameWithMessage)
+    let userNamesWithMessage = endorsementDictionary(sender, receiver, inputValue)
+    // console.log(userNameWithMessage)
     // console.log(endorsementDictionary(sender, receiver))
 
-    push(endorsementsinDB, userNameWithMessage)
+    push(endorsementsinDB, userNamesWithMessage)
     clearInputField(textAreaEL)
     // appendItemToListEl(inputValue)
 })
@@ -38,19 +38,21 @@ publishBtnEl.addEventListener("click", function(){
 onValue(endorsementsinDB, function(snapshot) {
     if (snapshot.exists())
     {
-        let itemArr = Object.entries(snapshot.val())
-        console.log(itemArr)
-        // Reverse order of items in itemArr
-        // itemArr.reverse()
+        const itemArr = Object.entries(snapshot.val())
+        // console.log(itemArr)
+        // Create a separate copy of the item array since .reverse is destructive, as it changes the original arr
+        //Reverse order of items in itemArr
+        const reverseItemArr = itemArr.reverse()
+        
         clearEndorsementListEl()
         // console.log(itemArr)
-        for (let i = 0; i<itemArr.length; i++) {
-            let currentItem= itemArr[i];
+        for (let i = 0; i< reverseItemArr.length; i++) {
+            let currentItem= reverseItemArr[i];
             
-            let currentItemID = itemArr[i][0];
+            let currentItemID = reverseItemArr[i][0];
             
-            let dictToArr = Object.entries( itemArr[i][1])
-            console.log(dictToArr)
+            let dictToArr = Object.entries( reverseItemArr[i][1])
+            // console.log(dictToArr)
             let currentMessage = dictToArr[1][1];
             
             let fromUser = dictToArr[0][1];
