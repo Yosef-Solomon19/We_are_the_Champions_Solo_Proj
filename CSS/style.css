@@ -164,7 +164,7 @@ h1, h2, p{
   width: 125px;
   
 }
-
+/* Try using putting the span and p in a div and setting display flex ? 11/1/2024 */
 .add-like-style {
   cursor: pointer;
   display: inline;
