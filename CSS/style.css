@@ -2,7 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Josefin+Sans:wght@700&display=swap');
 
 html, body {
-    margin: 0;
+  margin: 0;
+  user-select:text;
 }
 
 /*********** 
@@ -158,4 +159,12 @@ h1, h2, p{
  }
 .margin-top {
   margin-top: 8px;
+}
+
+.add-like-style {
+  cursor: pointer;
+  position: fixed;
+  margin-left: 185px;
+
+  
 }
