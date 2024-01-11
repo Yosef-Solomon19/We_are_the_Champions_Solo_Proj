@@ -98,6 +98,10 @@ function appendItemToListEl(currentID, message, from, to) {
 
     createPSenderEl.textContent = `From ${userSendingEndorsement}`
     createPReceiverEl.textContent =`To ${userReceivingEndorsement}`
+    const addSpanEl = addLikeEl()
+    // console.log(addSpanEl)
+    createPReceiverEl.append(addSpanEl)
+
     createLi.append(createPSenderEl, itemValue, createPReceiverEl)
 
     createLi.addEventListener("dblclick", function(){
@@ -109,16 +113,18 @@ function appendItemToListEl(currentID, message, from, to) {
 
 function addLikeEl() {
     const spanEl = document.createElement("span")
-    spanEl.classList=".add-like-style"
-    spanEl.textContent = "❤"
+    spanEl.classList = "add-like-style"
+    spanEl.textContent = `❤`;
 
     spanEl.addEventListener("click", function(){
+        console.log("clicked")
 
     })
+    return spanEl
 }
 
-function addLikeCounter() {
+function addLikeCount() {
     let counter = 0
-    
+
 
 }
