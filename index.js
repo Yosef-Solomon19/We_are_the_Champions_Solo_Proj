@@ -89,7 +89,14 @@ function appendItemToListEl(currentID, message, from, to) {
     let userReceivingEndorsement = to
 
     const createLi = document.createElement("li")
-    createLi.textContent= itemValue
+    const createPSenderEl = document.createElement("p")
+    createPSenderEl.classList="margin-btm"
+    const createPReceiverEl = document.createElement("p")
+    createPReceiverEl.classList="margin-top"
+
+    createPSenderEl.textContent = `From ${userSendingEndorsement}`
+    createPReceiverEl.textContent =`To ${userReceivingEndorsement}`
+    createLi.append(createPSenderEl, itemValue, createPReceiverEl)
 
     createLi.addEventListener("dblclick", function(){
         let exactLocationOfItemInDB = ref(database, `endorsements/${itemID}`)
