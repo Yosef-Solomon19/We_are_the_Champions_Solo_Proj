@@ -159,16 +159,21 @@ h1, h2, p{
  .margin-btm {
   margin-bottom: 12px;
  }
-.margin-top {
+
+/* .margin-top {
   margin-top: 8px;
   width: 125px;
   
-}
+} */
 /* Try using putting the span and p in a div and setting display flex ? 11/1/2024 */
+.flex-style {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  
+}
 .add-like-style {
   cursor: pointer;
-  display: inline;
-  align-items: end;
-  text-align: end;
-  vertical-align: end;
+  display: block;
+  margin-left: auto;
 }
