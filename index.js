@@ -126,13 +126,22 @@ function addLikeEl() {
 
     newPEl.addEventListener("click", function(){
         console.log("clicked")
+        addLikeCount(newPEl)
 
     })
     return newPEl
 }
-
-function addLikeCount() {
+// Adds like and store the amount of likes for that endorsement in the database ?
+function addLikeCount(likeCount) {
     let counter = 0
+    if (counter < 1 ) {
+        counter ++
+        likeCount.textContent = `❤ ${counter}`
+        console.log(`Current count - ${counter}`)
+    } else {
+        console.log(`Current count - ${counter}`)
+    }
+
 
 
 }
