@@ -132,6 +132,7 @@ function addLikeEl() {
     return newPEl
 }
 // Adds like and store the amount of likes for that endorsement in the database ?
+// Next task 16/1/2024 - storing likes for each endorsement in the db and display the current likes for each endorsement msg
 function addLikeCount(likeCount) {
     let counter = 0
     if (counter < 1 ) {
@@ -141,10 +142,9 @@ function addLikeCount(likeCount) {
     } else {
         console.log(`Current count - ${counter}`)
     }
-
-
-
 }
+
+
 
 console.log("check"
 )
