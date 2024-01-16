@@ -98,11 +98,10 @@ function appendItemToListEl(currentID, message, from, to) {
 
     createPSenderEl.textContent = `From ${userSendingEndorsement}`
     createPReceiverEl.textContent =`To ${userReceivingEndorsement}`
-    const addSpanEl = addLikeEl()
-    // console.log(addSpanEl)
-    createPReceiverEl.append(addSpanEl)
 
-    createLi.append(createPSenderEl, itemValue, createPReceiverEl)
+    const receiverSection = addDiv(createPReceiverEl, addLikeEl())    
+
+    createLi.append(createPSenderEl, itemValue, receiverSection)
 
     createLi.addEventListener("dblclick", function(){
         let exactLocationOfItemInDB = ref(database, `endorsements/${itemID}`)
@@ -111,16 +110,25 @@ function appendItemToListEl(currentID, message, from, to) {
     endorsementListEl.append(createLi)
 }
 
-function addLikeEl() {
-    const spanEl = document.createElement("span")
-    spanEl.classList = "add-like-style"
-    spanEl.textContent = `❤`;
+// function that takes addlikeEl and createPReceiverEl and appends them to a div with a class on it
+function addDiv(Receiver, likeCount) {
+    const newDiv = document.createElement("div")
+    newDiv.classList = "flex-style"
+    newDiv.append(Receiver, likeCount)
+    return newDiv
+}
 
-    spanEl.addEventListener("click", function(){
+
+function addLikeEl() {
+    const newPEl = document.createElement("p")
+    newPEl.classList = "add-like-style"
+    newPEl.textContent = `❤`;
+
+    newPEl.addEventListener("click", function(){
         console.log("clicked")
 
     })
-    return spanEl
+    return newPEl
 }
 
 function addLikeCount() {
@@ -128,3 +136,6 @@ function addLikeCount() {
 
 
 }
+
+console.log("check"
+)
