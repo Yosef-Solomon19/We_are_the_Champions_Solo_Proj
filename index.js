@@ -39,7 +39,7 @@ onValue(endorsementsinDB, function(snapshot) {
     if (snapshot.exists())
     {
         const itemArr = Object.entries(snapshot.val())
-        // console.log(itemArr)
+        console.log(itemArr)
         // Create a separate copy of the item array since .reverse is destructive, as it changes the original arr
         //Reverse order of items in itemArr
         const reverseItemArr = itemArr.reverse()
@@ -52,12 +52,15 @@ onValue(endorsementsinDB, function(snapshot) {
             let currentItemID = reverseItemArr[i][0];
             
             let dictToArr = Object.entries( reverseItemArr[i][1])
-            // console.log(dictToArr)
+            console.log(dictToArr)
             let currentMessage = dictToArr[1][1];
             
             let fromUser = dictToArr[0][1];
             
             let toUser = dictToArr[2][1];
+
+            let likeNum = dictToArr[3][1]
+            addLikeCount(addLikeEl(), likeNum,currentItemID ) 
             
             appendItemToListEl(currentItemID, currentMessage, fromUser,toUser) 
         }
@@ -73,7 +76,8 @@ function endorsementDictionary(from, to, message) {
     let endorsement = {}
     endorsement.Message = message
     endorsement.To = to
-    endorsement.From = from    
+    endorsement.From = from 
+    endorsement.likes = 0   
     return endorsement
 }
 
@@ -89,6 +93,7 @@ function appendItemToListEl(currentID, message, from, to) {
     let itemValue = message
     let userSendingEndorsement = from
     let userReceivingEndorsement = to
+    
 
     const createLi = document.createElement("li")
     const createPSenderEl = document.createElement("p")
@@ -132,19 +137,21 @@ function addLikeEl() {
     return newPEl
 }
 // Adds like and store the amount of likes for that endorsement in the database ?
-// Next task 16/1/2024 - storing likes for each endorsement in the db and display the current likes for each endorsement msg
-function addLikeCount(likeCount) {
+// Next task 16/1/2024 - storing likes for each endorsement in the db and display the current likes for each endorsement msg section
+function addLikeCount(likeEl,likeCount, currentID) {
+    let countfromDB = likeCount
+    let itemID = currentID
     let counter = 0
-    if (counter < 1 ) {
-        counter ++
-        likeCount.textContent = `❤ ${counter}`
-        console.log(`Current count - ${counter}`)
+    if (counter >= 1 ) {
+        console.log(`Count added already - ${counter}`)
+
     } else {
-        console.log(`Current count - ${counter}`)
+        counter ++
+        likeEl.textContent = `❤ ${counter}`
+        console.log(`Counter ${counter}`)
+        console.log(`count from db ${likeCount}`)
+        console.log(`ID - ${currentID}`)
+
     }
+    // console.log(`current count ${counter} count from db ${likeCount} current ID${currentID}`)
 }
-
-
-
-console.log("check"
-)
