@@ -126,6 +126,7 @@ function addDiv(Receiver, likeCount) {
 
 
 // Task 18/1/ - 19/1/2024 Combine addLikeEl with addLike Count 
+// reference - https://stackoverflow.com/questions/40589397/firebase-db-how-to-update-particular-value-of-child-in-firebase-database
 function addLikeElAndCount(likeCount, currentID) {
     const newPEl = document.createElement("p")
     newPEl.classList = "add-like-style"
