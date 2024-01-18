@@ -104,7 +104,7 @@ function appendItemToListEl(currentID, message, from, to) {
     createPSenderEl.textContent = `From ${userSendingEndorsement}`
     createPReceiverEl.textContent =`To ${userReceivingEndorsement}`
 
-    const receiverSection = addDiv(createPReceiverEl, addLikeEl())    
+    const receiverSection = addDiv(createPReceiverEl, addLikeElAndCount())    
 
     createLi.append(createPSenderEl, itemValue, receiverSection)
 
@@ -124,6 +124,35 @@ function addDiv(Receiver, likeCount) {
 }
 
 
+
+// Task 18/1/ - 19/1/2024 Combine addLikeEl with addLike Count 
+function addLikeElAndCount(likeCount, currentID) {
+    const newPEl = document.createElement("p")
+    newPEl.classList = "add-like-style"
+    newPEl.textContent = `❤`
+
+    newPEl.addEventListener("click", function(){
+        console.log("clicked")
+        // addLikeCount(newPEl)
+        let counter = 0; 
+        if (counter >= 1 ) {
+            console.log(`Count added already - ${counter}`)
+    
+        } else {
+            counter ++
+            newPEl.textContent = `❤ ${counter}`
+            console.log(counter)
+        }
+
+    })
+    return newPEl
+
+}
+
+
+
+
+
 function addLikeEl() {
     const newPEl = document.createElement("p")
     newPEl.classList = "add-like-style"
@@ -131,7 +160,9 @@ function addLikeEl() {
 
     newPEl.addEventListener("click", function(){
         console.log("clicked")
-        addLikeCount(newPEl)
+        // addLikeCount(newPEl)
+
+
 
     })
     return newPEl
@@ -149,9 +180,12 @@ function addLikeCount(likeEl,likeCount, currentID) {
         counter ++
         likeEl.textContent = `❤ ${counter}`
         console.log(`Counter ${counter}`)
-        console.log(`count from db ${likeCount}`)
-        console.log(`ID - ${currentID}`)
+        console.log(`count from db ${countfromDB}`)
+        console.log(`ID - ${itemID}`)
+        let exactLocationOfItemInDB = ref(database, `endorsements/${itemID}`)
+        console.log(exactLocationOfItemInDB)
 
     }
     // console.log(`current count ${counter} count from db ${likeCount} current ID${currentID}`)
+    
 }
