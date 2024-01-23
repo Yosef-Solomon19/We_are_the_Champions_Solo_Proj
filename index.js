@@ -1,7 +1,7 @@
 'use strict';
 // Import to initialize app, get database, etc
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const textAreaEL = document.querySelector("#textarea-el")
 const publishBtnEl = document.querySelector("#btn-el")
@@ -126,36 +126,45 @@ function addDiv(Receiver, likeEl) {
 
 
 // Task 18/1/ - 19/1/2024 Combine addLikeEl with addLike Count, add single like count per user, Update new like count per message liked 
+//                        Add number of likes when clicked - done 
+//                        Add only one like count per user - involves storing isClicked variable in localStorage - in progress
+//                        Update the number of likes to Firebase - done 
 // reference - https://stackoverflow.com/questions/40589397/firebase-db-how-to-update-particular-value-of-child-in-firebase-database
 //           - https://stackoverflow.com/questions/2788191/how-to-check-whether-a-button-is-clicked-by-using-javascript
+// Create a global boolean variable 
+let isClicked = false
 function addLikeElAndUpdateCount(likeCount, currentID) {
     console.log(`Current count - ${likeCount}`)
     const newPEl = document.createElement("p")
     newPEl.classList = "add-like-style"
     newPEl.setAttribute("id", "likeCounter")
-    newPEl.textContent = `❤`
+    // console.log(`Like count - ${likeCount}`)
     
-    let isClicked = false
-    let counter = 0;
+    
+    let counter = likeCount;
+
+    // Stores the item(s) associated with the ID in the DB
+    let exactLocationOfItemInDB = ref(database, `endorsements/${currentID}`)
 
     newPEl.addEventListener("click", function(){
-        console.log("clicked")
         console.log(currentID)
         // addLikeCount(newPEl) 
-        if (isClicked) {
-            console.log("Already clicked")
-            console.log(`Count added already - ${counter}`)            
+        if (!isClicked) {
+            // console.log("Already clicked")
+            isClicked = true
+            counter += 1 
+            newPEl.textContent = `❤ ${ counter}`            
+            update(exactLocationOfItemInDB, {likes: counter})
+            console.log(`Adding ... ${counter}`)
+                       
     
         } else {
-            // console.log(isClicked)
-            // console.log("just clicked")
-            
-            counter += 1 
-            newPEl.textContent = `❤ ${counter}`
-            console.log(`Adding ... ${counter}`)
-            isClicked = true
+            console.log(`Count added already - ${counter}`) 
         }
+        
     })
+    console.log(` - ${isClicked}`)
+    newPEl.textContent = `❤ ${counter}`
     return newPEl
 }
 
