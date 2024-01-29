@@ -158,12 +158,12 @@ let isClicked = false
 let convertToBoolean = localStorage.getItem("isClicked")
 
 // Increment ID number for every new element that's made 
-let idCount = 0
+let idCounter = 0
 function addLikeElAndUpdateCount(likeCount, currentID) {
     console.log(`Current count - ${likeCount}`)
     const newPEl = document.createElement("p")
     newPEl.classList = "add-like-style"
-    newPEl.setAttribute("id", "likeCounter-" +(idCount++) )
+    newPEl.setAttribute("id", "likeCounter-" + idCounter++)
     newPEl.textContent = `❤ ${ likeCount}`
     // console.log(`Like count - ${likeCount}`)
     
@@ -175,13 +175,14 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
 
     newPEl.addEventListener("click", function(){
         console.log(currentID)
+        let currentElementID = this.id
+        console.log(currentElementID)
         // addLikeCount(newPEl) 
         if (!isClicked) {
             // console.log("Already clicked")
-            console.log(this.id)
-            isClicked = true
+            // isClicked = true
             // New Task 29/1/2024 - In the if statement check if key of the local storage item is true or 'clicked'
-            localStorage.setItem(this.id, isClicked)
+            // localStorage.setItem(currentElementID, isClicked)
             counter += 1 
             newPEl.textContent = `❤ ${ counter}`            
             update(exactLocationOfItemInDB, {likes: counter})
@@ -196,8 +197,12 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
     // console.log(localStorage.getItem("isClicked"))
     console.log(` - ${isClicked}`)
     // newPEl.textContent = `❤ ${counter}`
+    console.log(`Id count - ${idCounter}`)
     return newPEl
+    
 }
+
+// console.log(`Id count pt 2 - ${idCount}`)
 
 // function addLikeEl() {
 //     const newPEl = document.createElement("p")
@@ -231,3 +236,11 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
 //     // console.log(`current count ${counter} count from db ${likeCount} current ID${currentID}`)
     
 // }
+
+// Current problem I'm facing 
+// Incrementing ID by 1 for each element created 
+// Issue - the id number does not stay consistent, refreshing the page causing the number to increase still 
+// Currently all of the new generated element have the same ID
+// Current thoughts on how to solve it - A) Rest idCounter to 0 
+//                                       B) Use A with an if statement to check if a new endorsement is made 
+// 
