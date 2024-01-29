@@ -178,8 +178,10 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
         // addLikeCount(newPEl) 
         if (!isClicked) {
             // console.log("Already clicked")
+            console.log(this.id)
             isClicked = true
-            // localStorage.setItem("isClicked", isClicked)
+            // New Task 29/1/2024 - In the if statement check if key of the local storage item is true or 'clicked'
+            localStorage.setItem(this.id, isClicked)
             counter += 1 
             newPEl.textContent = `❤ ${ counter}`            
             update(exactLocationOfItemInDB, {likes: counter})
