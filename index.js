@@ -163,10 +163,9 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
     console.log(`Current count - ${likeCount}`)
     const newPEl = document.createElement("p")
     newPEl.classList = "add-like-style"
-    newPEl.setAttribute("id", "likeCounter-" + idCounter++)
+    newPEl.setAttribute("id", "likeCounter-" + idCounter++) // Add increment count here seems to have brought an unexpected result. 
     newPEl.textContent = `❤ ${ likeCount}`
     // console.log(`Like count - ${likeCount}`)
-    
     
     let counter = likeCount;
 
@@ -177,6 +176,7 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
         console.log(currentID)
         let currentElementID = this.id
         console.log(currentElementID)
+        // localStorage.setItem(currentElementID, isClicked)
         // addLikeCount(newPEl) 
         if (!isClicked) {
             // console.log("Already clicked")
