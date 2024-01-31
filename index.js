@@ -136,7 +136,7 @@ function addDiv(Receiver, likeEl) {
 // Set boolean value in local storage 
 let isClicked = false
 
-// function setBoolean () {
+// function convertToBoolean () {
 //     let getBooleanValFromLocal = JSON.parse(localStorage.getItem("isClicked"))
 //     return getBooleanValFromLocal
 // }
@@ -155,7 +155,7 @@ let isClicked = false
 // console.log(JSON.stringify)
 
 // localStorage.setItem("isClicked", isClicked)
-let convertToBoolean = localStorage.getItem("isClicked")
+// let convertToBoolean = localStorage.getItem("isClicked")
 
 // Increment ID number for every new element that's made 
 let idCounter = 0
