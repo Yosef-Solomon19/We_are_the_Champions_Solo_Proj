@@ -134,7 +134,7 @@ function addDiv(Receiver, likeEl) {
 //           - https://stackoverflow.com/questions/14107817/using-javascript-to-dynamically-create-dom-elements-with-incrementing-ids
 // Create a global boolean variable 
 // Set boolean value in local storage 
-let isClicked = false
+
 
 // function convertToBoolean () {
 //     let getBooleanValFromLocal = JSON.parse(localStorage.getItem("isClicked"))
@@ -166,23 +166,35 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
     newPEl.setAttribute("id", "likeCounter-" + idCounter++) // Add increment count here seems to have brought an unexpected result. 
     newPEl.textContent = `❤ ${ likeCount}`
     // console.log(`Like count - ${likeCount}`)
+
+    // Generate local storage for endorsement message
+    localStorage.setItem(newPEl.id, false)
+
     
-    let counter = likeCount;
+    
 
     // Stores the item(s) associated with the ID in the DB
     let exactLocationOfItemInDB = ref(database, `endorsements/${currentID}`)
 
+    // Storing number of likes from the Id in the DB
+    let counter = likeCount;
+
     newPEl.addEventListener("click", function(){
+        let isMessageClicked = JSON.parse(localStorage.getItem(this.id))
+        // console.log(`isMessageClicked ${typeof(isMessageClicked)}`)
+        // let isClicked = false
         console.log(currentID)
         let currentElementID = this.id
         console.log(currentElementID)
         // localStorage.setItem(currentElementID, isClicked)
         // addLikeCount(newPEl) 
-        if (!isClicked) {
+        if (document.getElementById(currentElementID) && isMessageClicked === false) {
+            console.log(`Hey ${currentElementID}`)
+            // isClicked = true
             // console.log("Already clicked")
             // isClicked = true
             // New Task 29/1/2024 - In the if statement check if key of the local storage item is true or 'clicked'
-            // localStorage.setItem(currentElementID, isClicked)
+            localStorage.setItem(currentElementID, true)
             counter += 1 
             newPEl.textContent = `❤ ${ counter}`            
             update(exactLocationOfItemInDB, {likes: counter})
@@ -195,13 +207,14 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
         
     })
     // console.log(localStorage.getItem("isClicked"))
-    console.log(` - ${isClicked}`)
+    // console.log(` - ${isClicked}`)
     // newPEl.textContent = `❤ ${counter}`
     console.log(`Id count - ${idCounter}`)
     return newPEl
     
 }
-
+// localStorage.setItem("check", false)
+// console.log(localStorage.getItem("check"))
 // console.log(`Id count pt 2 - ${idCount}`)
 
 // function addLikeEl() {
