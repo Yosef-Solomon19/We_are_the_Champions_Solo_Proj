@@ -252,9 +252,12 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
 
 // Current problem I'm facing 
 // Incrementing ID by 1 for each element created 
-// Issue - the id number does not stay consistent, refreshing the page causing the number to increase still 
+// Issue - the id number does not stay consistent, refreshing the page causes the number to increase still 
 // Currently all of the new generated element have the same ID
 // Current thoughts on how to solve it - A) Rest idCounter to 0 
 //                                       B) Use A with an if statement to check if a new endorsement is made 
 // 
+// Current Issue - initial genration of local storage works but new storages are made after clicking the messages 
+//               - Not sure if local storage is needed I need to a separate experiment to check with the event listener 
+//               - Will plan for a one to one meeting if I'm having too much trouble with this 
 // Testing
