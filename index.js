@@ -257,3 +257,4 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
 // Current thoughts on how to solve it - A) Rest idCounter to 0 
 //                                       B) Use A with an if statement to check if a new endorsement is made 
 // 
+// Testing
