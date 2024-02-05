@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 // Import to initialize app, get database, etc
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
 import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
