@@ -134,7 +134,7 @@ function addDiv(Receiver, likeEl) {
 //           - https://stackoverflow.com/questions/14107817/using-javascript-to-dynamically-create-dom-elements-with-incrementing-ids
 // Create a global boolean variable 
 // Set boolean value in local storage 
-let isClicked = false
+
 
 // function convertToBoolean () {
 //     let getBooleanValFromLocal = JSON.parse(localStorage.getItem("isClicked"))
@@ -156,6 +156,7 @@ let isClicked = false
 
 // localStorage.setItem("isClicked", isClicked)
 // let convertToBoolean = localStorage.getItem("isClicked")
+let isClicked = false
 
 // Increment ID number for every new element that's made 
 let idCounter = 0
@@ -170,28 +171,10 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
     let counter = likeCount;
 
     // Stores the item(s) associated with the ID in the DB
-    let exactLocationOfItemInDB = ref(database, `endorsements/${currentID}`)
+    // let exactLocationOfItemInDB = ref(database, `endorsements/${currentID}`)
 
     newPEl.addEventListener("click", function(){
-        console.log(currentID)
-        let currentElementID = this.id
-        console.log(currentElementID)
-        // localStorage.setItem(currentElementID, isClicked)
-        // addLikeCount(newPEl) 
-        if (!isClicked) {
-            // console.log("Already clicked")
-            // isClicked = true
-            // New Task 29/1/2024 - In the if statement check if key of the local storage item is true or 'clicked'
-            // localStorage.setItem(currentElementID, isClicked)
-            counter += 1 
-            newPEl.textContent = `❤ ${ counter}`            
-            update(exactLocationOfItemInDB, {likes: counter})
-            console.log(`Adding ... ${counter}`)
-                       
-    
-        } else {
-            console.log(`Count added already - ${counter}`) 
-        }
+        checkIfLikeIsClicked(this.id, counter, newPEl, currentID)    
         
     })
     // console.log(localStorage.getItem("isClicked"))
@@ -201,6 +184,35 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
     return newPEl
     
 }
+
+function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbItemID) {
+    // Stores the item(s) associated with the ID in the DB
+    let exactLocationOfItemInDB = ref(database, `endorsements/${dbItemID}`)
+
+    console.log(messageID)
+    // let currentElementID = this.id
+    // console.log(currentElementID)
+    // localStorage.setItem(currentElementID, isClicked)
+    // addLikeCount(newPEl) 
+    if (!isClicked) {
+        // console.log("Already clicked")
+        // isClicked = true
+        // New Task 29/1/2024 - In the if statement check if key of the local storage item is true or 'clicked'
+        // localStorage.setItem(currentElementID, isClicked)
+        isClicked = true
+        currentMessageLikeCount += 1 
+        paraEl.textContent = `❤ ${ currentMessageLikeCount}`            
+        update(exactLocationOfItemInDB, {likes: currentMessageLikeCount})
+        console.log(`Adding ... ${currentMessageLikeCount}`)
+                    
+
+    } else {
+        console.log(`Count added already - ${currentMessageLikeCount}`) 
+    }
+
+}
+
+
 
 // console.log(`Id count pt 2 - ${idCount}`)
 
