@@ -132,15 +132,16 @@ function addDiv(Receiver, likeEl) {
 //           - https://stackoverflow.com/questions/2788191/how-to-check-whether-a-button-is-clicked-by-using-javascript
 //           - https://stackoverflow.com/questions/14107817/using-javascript-to-dynamically-create-dom-elements-with-incrementing-ids
 
-let isClicked = false
+
 
 // Increment ID number for every new element that's made 
-let idCounter = 0
+// let idCounter = 0
 function addLikeElAndUpdateCount(likeCount, currentID) {
     console.log(`Current count - ${likeCount}`)
     const newPEl = document.createElement("p")
     newPEl.classList = "add-like-style"
-    newPEl.setAttribute("id", "likeCounter-" + idCounter++) // Add increment count here seems to have brought an unexpected result. 
+    // idCounter = idCounter + 1 
+    // newPEl.setAttribute("id", "likeCounter-" + idCounter) // Add increment count here seems to have brought an unexpected result. 
     newPEl.textContent = `❤ ${ likeCount}`
     
     
@@ -148,16 +149,18 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
 
 
     newPEl.addEventListener("click", function(){
-        checkIfLikeIsClicked(this.id, counter, newPEl, currentID)    
+        checkIfLikeIsClicked(this.id, counter, newPEl, currentID) 
+        console.log(`this was clicked ${this.id}`)   
         
     })
     // console.log(localStorage.getItem("isClicked"))
     console.log(` - ${isClicked}`)
     // newPEl.textContent = `❤ ${counter}`
-    console.log(`Id count - ${idCounter}`)
+    // console.log(`Id count - ${idCounter}`)
     return newPEl
 }
 
+let isClicked = false
 function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbItemID) {
     // Stores the item(s) associated with the ID in the DB
     let exactLocationOfItemInDB = ref(database, `endorsements/${dbItemID}`)
