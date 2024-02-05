@@ -39,7 +39,6 @@ onValue(endorsementsinDB, function(snapshot) {
     if (snapshot.exists())
     {
         const itemArr = Object.entries(snapshot.val())
-        // console.log(itemArr)
         // Create a separate copy of the item array since .reverse is destructive, as it changes the original arr
         //Reverse order of items in itemArr
         const reverseItemArr = itemArr.reverse()
@@ -60,7 +59,7 @@ onValue(endorsementsinDB, function(snapshot) {
             let toUser = dictToArr[2][1];
 
             let likeCountNum = dictToArr[3][1]
-            // addLikeCount(addLikeEl(), likeNum,currentItemID ) 
+            
             appendItemToListEl(currentItemID, currentMessage, fromUser,toUser, likeCountNum) 
         }
 
@@ -132,30 +131,7 @@ function addDiv(Receiver, likeEl) {
 // reference - https://stackoverflow.com/questions/40589397/firebase-db-how-to-update-particular-value-of-child-in-firebase-database
 //           - https://stackoverflow.com/questions/2788191/how-to-check-whether-a-button-is-clicked-by-using-javascript
 //           - https://stackoverflow.com/questions/14107817/using-javascript-to-dynamically-create-dom-elements-with-incrementing-ids
-// Create a global boolean variable 
-// Set boolean value in local storage 
 
-
-// function convertToBoolean () {
-//     let getBooleanValFromLocal = JSON.parse(localStorage.getItem("isClicked"))
-//     return getBooleanValFromLocal
-// }
-
-// isClicked = setBoolean()
-
-// localStorage.setItem("isClicked", "false")
-// Create a global boolean variable with the value from local storage 
-// let isClicked = JSON.parse(localStorage.getItem("isClicked"))
-// console.log(isClicked)
-// Storing boolean value in local storage
-
-// localStorage.setItem("isClicked", isClicked)
-// let x = localStorage.getItem("isClicked")
-// console.log(typeof(JSON.parse(x)))
-// console.log(JSON.stringify)
-
-// localStorage.setItem("isClicked", isClicked)
-// let convertToBoolean = localStorage.getItem("isClicked")
 let isClicked = false
 
 // Increment ID number for every new element that's made 
@@ -166,12 +142,10 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
     newPEl.classList = "add-like-style"
     newPEl.setAttribute("id", "likeCounter-" + idCounter++) // Add increment count here seems to have brought an unexpected result. 
     newPEl.textContent = `❤ ${ likeCount}`
-    // console.log(`Like count - ${likeCount}`)
+    
     
     let counter = likeCount;
 
-    // Stores the item(s) associated with the ID in the DB
-    // let exactLocationOfItemInDB = ref(database, `endorsements/${currentID}`)
 
     newPEl.addEventListener("click", function(){
         checkIfLikeIsClicked(this.id, counter, newPEl, currentID)    
@@ -182,7 +156,6 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
     // newPEl.textContent = `❤ ${counter}`
     console.log(`Id count - ${idCounter}`)
     return newPEl
-    
 }
 
 function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbItemID) {
@@ -190,15 +163,9 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
     let exactLocationOfItemInDB = ref(database, `endorsements/${dbItemID}`)
 
     console.log(messageID)
-    // let currentElementID = this.id
-    // console.log(currentElementID)
-    // localStorage.setItem(currentElementID, isClicked)
-    // addLikeCount(newPEl) 
+    
     if (!isClicked) {
-        // console.log("Already clicked")
-        // isClicked = true
-        // New Task 29/1/2024 - In the if statement check if key of the local storage item is true or 'clicked'
-        // localStorage.setItem(currentElementID, isClicked)
+        
         isClicked = true
         currentMessageLikeCount += 1 
         paraEl.textContent = `❤ ${ currentMessageLikeCount}`            
@@ -211,43 +178,6 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
     }
 
 }
-
-
-
-// console.log(`Id count pt 2 - ${idCount}`)
-
-// function addLikeEl() {
-//     const newPEl = document.createElement("p")
-//     newPEl.classList = "add-like-style"
-//     newPEl.textContent = `❤`;
-
-//     newPEl.addEventListener("click", function(){
-//         console.log("clicked")
-//     })
-//     return newPEl
-// }
-// Adds like and store the amount of likes for that endorsement in the database ?
-// Next task 16/1/2024 - storing likes for each endorsement in the db and display the current likes for each endorsement msg section
-// function addLikeCount(likeEl,likeCount, currentID) {
-//     let countfromDB = likeCount
-//     let itemID = currentID
-//     let counter = 0
-//     if (counter >= 1 ) {
-//         console.log(`Count added already - ${counter}`)
-
-//     } else {
-//         counter ++
-//         likeEl.textContent = `❤ ${counter}`
-//         console.log(`Counter ${counter}`)
-//         console.log(`count from db ${countfromDB}`)
-//         console.log(`ID - ${itemID}`)
-//         let exactLocationOfItemInDB = ref(database, `endorsements/${itemID}`)
-//         console.log(exactLocationOfItemInDB)
-
-//     }
-//     // console.log(`current count ${counter} count from db ${likeCount} current ID${currentID}`)
-    
-// }
 
 // Current problem I'm facing 
 // Incrementing ID by 1 for each element created 
