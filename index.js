@@ -184,9 +184,9 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
 
 // Current problem I'm facing 
 // Incrementing ID by 1 for each element created 
-// Issue - the id number does not stay consistent, refreshing the page causing the number to increase still 
-// Currently all of the new generated element have the same ID
-// Current thoughts on how to solve it - A) Rest idCounter to 0 
-//                                       B) Use A with an if statement to check if a new endorsement is made 
-// 
-// Testing
+// Issue - A) How to allow only one click for each message on display ? 
+//         B) When generating an ID for the like p element for each message, refreshing the page causes the id number to double, why?
+//         C) 
+// What works so far: 
+//          A) User can like and cannot like the same message, but it causes other messages to not be liked as well. Even if 
+//              you haven't liked them before. 
