@@ -70,7 +70,8 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 - Creating elements in JS and appending them to existing elements in HTML
 - Fetching database in realtime using onValue from firebase
 - Utilizing flexbox to have items wrap around the max width of a parent element
-- Making the app mobile friendly
+- Making the app mobile friendly with user-select, viewport, web application manifest
+- Turning objects into an array
 
 Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
 
