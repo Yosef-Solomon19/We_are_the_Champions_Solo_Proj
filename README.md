@@ -26,7 +26,7 @@ Building the app from scratch
 Following the design provided
 Using Firebase Realtime Databse
 Update in realtime
-Designed as a mobile app
+Designed to be mobile friendly
 
 ### Stretch Goals
 
