@@ -142,15 +142,13 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
     newPEl.classList = "add-like-style"
     // idCounter = idCounter + 1 
     // newPEl.setAttribute("id", "likeCounter-" + idCounter) // Add increment count here seems to have brought an unexpected result. 
-    newPEl.textContent = `❤ ${ likeCount}`
+    newPEl.textContent = `❤ ${ likeCount}`  
     
-    
-    let counter = likeCount;
-
+    let counter = likeCount;    
 
     newPEl.addEventListener("click", function(){
         checkIfLikeIsClicked(this.id, counter, newPEl, currentID) 
-        console.log(`this was clicked ${this.id}`)   
+        console.log(`this was clicked - ${this.id}`)   
         
     })
     // console.log(localStorage.getItem("isClicked"))
@@ -167,15 +165,12 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
 
     console.log(messageID)
     
-    if (!isClicked) {
-        
+    if (!isClicked) {        
         isClicked = true
         currentMessageLikeCount += 1 
         paraEl.textContent = `❤ ${ currentMessageLikeCount}`            
         update(exactLocationOfItemInDB, {likes: currentMessageLikeCount})
         console.log(`Adding ... ${currentMessageLikeCount}`)
-                    
-
     } else {
         console.log(`Count added already - ${currentMessageLikeCount}`) 
     }
@@ -185,8 +180,9 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
 // Current problem I'm facing 
 // Incrementing ID by 1 for each element created 
 // Issue - A) How to allow only one click for each message on display ? 
-//         B) When generating an ID for the like p element for each message, refreshing the page causes the id number to double, why?
+//         B) When generating an ID for the like icon p element for each message, refreshing the page causes the id number to double, why?
 //         C) 
 // What works so far: 
 //          A) User can like and cannot like the same message, but it causes other messages to not be liked as well. Even if 
-//              you haven't liked them before. 
+//              user hasn't liked them before. 
+//          Should I try storing boolean values for each message in local storage? 
