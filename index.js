@@ -42,15 +42,16 @@ onValue(endorsementsinDB, function(snapshot) {
         // Create a separate copy of the item array since .reverse is destructive, as it changes the original arr
         //Reverse order of items in itemArr
         const reverseItemArr = itemArr.reverse()
-        
+        storeItemsInLocal(reverseItemArr)
         clearEndorsementListEl()
-        // console.log(itemArr)
+        console.log(itemArr)
         for (let i = 0; i< reverseItemArr.length; i++) {
             let currentItem= reverseItemArr[i];
             
             let currentItemID = reverseItemArr[i][0];
             
             let dictToArr = Object.entries( reverseItemArr[i][1])
+            // Extract from dictionary instead of converting them to array. 
             // console.log(dictToArr)
             let currentMessage = dictToArr[1][1];
             
@@ -61,6 +62,7 @@ onValue(endorsementsinDB, function(snapshot) {
             let likeCountNum = dictToArr[3][1]
             
             appendItemToListEl(currentItemID, currentMessage, fromUser,toUser, likeCountNum) 
+            
         }
 
     } else {
@@ -142,13 +144,13 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
     newPEl.classList = "add-like-style"
     // idCounter = idCounter + 1 
     // newPEl.setAttribute("id", "likeCounter-" + idCounter) // Add increment count here seems to have brought an unexpected result. 
-    newPEl.textContent = `❤ ${ likeCount}`  
+    newPEl.textContent = `❤ ${likeCount}`  
     
     let counter = likeCount;    
 
     newPEl.addEventListener("click", function(){
         checkIfLikeIsClicked(this.id, counter, newPEl, currentID) 
-        console.log(`this was clicked - ${this.id}`)   
+        // console.log(`this was clicked - ${this.id}`)   
         
     })
     // console.log(localStorage.getItem("isClicked"))
@@ -156,6 +158,17 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
     // newPEl.textContent = `❤ ${counter}`
     // console.log(`Id count - ${idCounter}`)
     return newPEl
+}
+
+// localstorage function 
+function storeItemsInLocal(reverseItemArr){
+    // loop through the array of item
+    for (let i = 0; i < reverseItemArr.length; i++) {
+        //    add a flag on each item to remember that it got liked or not by this user
+        reverseItemArr[i][1].isLiked = false
+    }
+    // store it in local storage
+    localStorage.setItem('itms', JSON.stringify(reverseItemArr))
 }
 
 let isClicked = false
