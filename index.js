@@ -47,19 +47,21 @@ onValue(endorsementsinDB, function(snapshot) {
         console.log(itemArr)
         for (let i = 0; i< reverseItemArr.length; i++) {
             let currentItem= reverseItemArr[i];
+            console.log(currentItem[1])
             
             let currentItemID = reverseItemArr[i][0];
-            
-            let dictToArr = Object.entries( reverseItemArr[i][1])
-            // Extract from dictionary instead of converting them to array. 
-            // console.log(dictToArr)
-            let currentMessage = dictToArr[1][1];
-            
-            let fromUser = dictToArr[0][1];
-            
-            let toUser = dictToArr[2][1];
 
-            let likeCountNum = dictToArr[3][1]
+            
+            // Extract from dictionary instead of converting them to array. 
+            let currentObjectItems = reverseItemArr[i][1]
+            
+            let currentMessage = currentObjectItems.Message
+            
+            let fromUser = currentObjectItems.From
+            
+            let toUser = currentObjectItems.To
+
+            let likeCountNum = currentObjectItems.likes
             
             appendItemToListEl(currentItemID, currentMessage, fromUser,toUser, likeCountNum) 
             
