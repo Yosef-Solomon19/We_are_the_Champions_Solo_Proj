@@ -50,7 +50,6 @@ onValue(endorsementsinDB, function(snapshot) {
             console.log(currentItem[1])
             
             let currentItemID = reverseItemArr[i][0];
-
             
             // Extract from dictionary instead of converting them to array. 
             let currentObjectItems = reverseItemArr[i][1]
@@ -173,7 +172,7 @@ function storeItemsInLocal(reverseItemArr){
     localStorage.setItem('itms', JSON.stringify(reverseItemArr))
 }
 
-let isClicked = false
+// let isClicked = false
 function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbItemID) {
     // Stores the item(s) associated with the ID in the DB
     let exactLocationOfItemInDB = ref(database, `endorsements/${dbItemID}`)
@@ -201,3 +200,26 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
 //          A) User can like and cannot like the same message, but it causes other messages to not be liked as well. Even if 
 //              user hasn't liked them before. 
 //          Should I try storing boolean values for each message in local storage? 
+
+
+
+// In the onvalue check if local storage exists 
+//      if it exists 
+//          do nothing 
+//      else 
+//         use localStorage function 
+
+// localstorage function 
+    // loop through the array of item
+        //    add a flag on each item to remember that it got liked or not by this user
+    // store it in local storage
+//
+// function from 176 called in 142
+//  if emoji was clicked before 
+//      do nothing 
+//  else 
+//      add 1 count 
+//      update isLiked to true
+//      
+// 
+// 
