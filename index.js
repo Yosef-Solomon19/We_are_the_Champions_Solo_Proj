@@ -155,7 +155,7 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
         
     })
     // console.log(localStorage.getItem("isClicked"))
-    console.log(` - ${isClicked}`)
+    // console.log(` - ${isClicked}`)
     // newPEl.textContent = `❤ ${counter}`
     // console.log(`Id count - ${idCounter}`)
     return newPEl
@@ -178,16 +178,20 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
     let exactLocationOfItemInDB = ref(database, `endorsements/${dbItemID}`)
 
     console.log(messageID)
+    currentMessageLikeCount += 1 
+    paraEl.textContent = `❤ ${ currentMessageLikeCount}`            
+    update(exactLocationOfItemInDB, {likes: currentMessageLikeCount})
+    console.log(`Adding ... ${currentMessageLikeCount}`)
     
-    if (!isClicked) {        
-        isClicked = true
-        currentMessageLikeCount += 1 
-        paraEl.textContent = `❤ ${ currentMessageLikeCount}`            
-        update(exactLocationOfItemInDB, {likes: currentMessageLikeCount})
-        console.log(`Adding ... ${currentMessageLikeCount}`)
-    } else {
-        console.log(`Count added already - ${currentMessageLikeCount}`) 
-    }
+    // if (!isClicked) {        
+    //     // isClicked = true
+    //     currentMessageLikeCount += 1 
+    //     paraEl.textContent = `❤ ${ currentMessageLikeCount}`            
+    //     update(exactLocationOfItemInDB, {likes: currentMessageLikeCount})
+    //     console.log(`Adding ... ${currentMessageLikeCount}`)
+    // } else {
+    //     console.log(`Count added already - ${currentMessageLikeCount}`) 
+    // }
 
 }
 
