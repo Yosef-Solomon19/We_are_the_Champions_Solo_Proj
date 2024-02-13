@@ -44,7 +44,7 @@ onValue(endorsementsinDB, function(snapshot) {
         const reverseItemArr = itemArr.reverse()
         // check if local storage exists 
         if(localStorage.hasOwnProperty("itms")) {
-            alert("Said storage exists")
+            // alert("Said storage exists")
             console.log(`localstorage exists`)
         } else {
             alert("Said storage doesn't exist creating one...")
@@ -185,7 +185,11 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
     // Stores the item(s) associated with the ID in the DB
     let exactLocationOfItemInDB = ref(database, `endorsements/${dbItemID}`)
 
-    //
+    //get item from localStorage 
+    let x = JSON.parse(localStorage.getItem("itms"))
+    // console.log(`Item-ID ${typeof(dbItemID)}`)
+    console.log(x)
+    // console.log(x[0][0])
 
     console.log(messageID)
     currentMessageLikeCount += 1 
@@ -229,7 +233,19 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
     // store it in local storage
 //
 // function from 176 called in 142
+//  get items from localstorage - current issue - task- get items, update check if local storage reflects that.
+//  compare ID from db with item in local storage 
+//  if true 
+//     if isLiked from localStorage is true
+//          do nothing
+//     else
+//      update isLiked in localStorage to true
+//      add count 
+//      update text with current count
+//      update number of likes in db
+// 
 //  if emoji was clicked before 
+//      (check in localStorage if isLiked is true)
 //      do nothing 
 //  else 
 //      add 1 count 
