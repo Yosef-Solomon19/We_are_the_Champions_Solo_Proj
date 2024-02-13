@@ -42,7 +42,15 @@ onValue(endorsementsinDB, function(snapshot) {
         // Create a separate copy of the item array since .reverse is destructive, as it changes the original arr
         //Reverse order of items in itemArr
         const reverseItemArr = itemArr.reverse()
-        storeItemsInLocal(reverseItemArr)
+        // check if local storage exists 
+        if(localStorage.hasOwnProperty("itms")) {
+            alert("Said storage exists")
+            console.log(`localstorage exists`)
+        } else {
+            alert("Said storage doesn't exist creating one...")
+            storeItemsInLocal(reverseItemArr)
+        }
+        
         clearEndorsementListEl()
         console.log(itemArr)
         for (let i = 0; i< reverseItemArr.length; i++) {
@@ -176,6 +184,8 @@ function storeItemsInLocal(reverseItemArr){
 function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbItemID) {
     // Stores the item(s) associated with the ID in the DB
     let exactLocationOfItemInDB = ref(database, `endorsements/${dbItemID}`)
+
+    //
 
     console.log(messageID)
     currentMessageLikeCount += 1 
