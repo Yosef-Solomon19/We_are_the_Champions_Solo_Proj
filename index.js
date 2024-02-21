@@ -43,7 +43,7 @@ onValue(endorsementsinDB, function(snapshot) {
         //Reverse order of items in itemArr
         const reverseItemArr = itemArr.reverse()
         // check if local storage exists 
-        if(localStorage.hasOwnProperty("itms")) {
+        if(localStorage.hasOwnProperty("itms")) { // find alternative to .hasOwnPropery to check if local storage exists w/ itms as key
             // alert("Said storage exists")
             console.log(`localstorage exists`)
         } else {
@@ -188,8 +188,15 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
     //get item from localStorage 
     let x = JSON.parse(localStorage.getItem("itms"))
     // console.log(`Item-ID ${typeof(dbItemID)}`)
-    console.log(x)
-    // console.log(x[0][0])
+    console.log(`Clicked - here's local storage ${x}`)
+    console.log(x.length)
+    console.log(dbItemID)
+    for (let i=0; i<x.length; i++) {
+        console.log(`${x[i][0]}`)
+    }
+    // Get ID of the clicked message to the ID in the localStorage and retreive isliked value
+
+    console.log(x[0])
 
     console.log(messageID)
     currentMessageLikeCount += 1 
