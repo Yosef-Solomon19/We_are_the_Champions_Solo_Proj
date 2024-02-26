@@ -52,10 +52,10 @@ onValue(endorsementsinDB, function(snapshot) {
         }
         
         clearEndorsementListEl()
-        console.log(itemArr)
+        // console.log(itemArr)
         for (let i = 0; i< reverseItemArr.length; i++) {
             let currentItem= reverseItemArr[i];
-            console.log(currentItem[1])
+            // console.log(currentItem[1])
             
             let currentItemID = reverseItemArr[i][0];
             
@@ -148,7 +148,7 @@ function addDiv(Receiver, likeEl) {
 // Increment ID number for every new element that's made 
 // let idCounter = 0
 function addLikeElAndUpdateCount(likeCount, currentID) {
-    console.log(`Current count - ${likeCount}`)
+    // console.log(`Current count - ${likeCount}`)
     const newPEl = document.createElement("p")
     newPEl.classList = "add-like-style"
     // idCounter = idCounter + 1 
@@ -158,7 +158,8 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
     let counter = likeCount;    
 
     newPEl.addEventListener("click", function(){
-        checkIfLikeIsClicked(this.id, counter, newPEl, currentID) 
+        // addLikeCountAndUpdateToDB(this.id, counter, newPEl, currentID) 
+        checkIfMessageIsLiked(counter, newPEl, currentID)
         // console.log(`this was clicked - ${this.id}`)   
         
     })
@@ -181,24 +182,25 @@ function storeItemsInLocal(reverseItemArr){
 }
 
 // let isClicked = false
-function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbItemID) {
+// function that adds the like count and updates it to the DB
+function addLikeCountAndUpdateToDB (currentMessageLikeCount, paraEl, dbItemID) {
     // Stores the item(s) associated with the ID in the DB
     let exactLocationOfItemInDB = ref(database, `endorsements/${dbItemID}`)
 
-    //get item from localStorage 
-    let x = JSON.parse(localStorage.getItem("itms"))
-    // console.log(`Item-ID ${typeof(dbItemID)}`)
-    console.log(`Clicked - here's local storage ${x}`)
-    console.log(x.length)
-    console.log(dbItemID)
-    for (let i=0; i<x.length; i++) {
-        console.log(`${x[i][0]}`)
-    }
-    // Get ID of the clicked message to the ID in the localStorage and retreive isliked value
+    // //get item from localStorage 
+    // let x = JSON.parse(localStorage.getItem("itms"))
+    // // console.log(`Item-ID ${typeof(dbItemID)}`)
+    // console.log(`Clicked - here's local storage ${x}`)
+    // console.log(x.length)
+    // console.log(dbItemID)
+    // for (let i=0; i<x.length; i++) {
+    //     console.log(`${x[i][0]}`)
+    // }
+    // // Get ID of the clicked message & compare it to the ID in the localStorage and retreive isliked value
 
-    console.log(x[0])
+    // console.log(x[0])
 
-    console.log(messageID)
+    // console.log(messageID)
     currentMessageLikeCount += 1 
     paraEl.textContent = `❤ ${ currentMessageLikeCount}`            
     update(exactLocationOfItemInDB, {likes: currentMessageLikeCount})
@@ -215,6 +217,46 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
     // }
 
 }
+// Gets the item from local storage, compares IDs b/w local storage and DB
+// If true set .isLiked to true, to prevent user for liking again 
+// If false do nothing 
+function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
+    console.log("Clicked")
+    //get item from localStorage 
+    let currentLocalItems = JSON.parse(localStorage.getItem("itms"))
+    // console.log(`Item-ID ${typeof(dbItemID)}`)
+    console.log(`Clicked - here's local storage ${currentLocalItems}`)
+    // console.log(currentLocalItems.length)
+    console.log(dbItemID)
+    
+    for (let i=0; i<currentLocalItems.length; i++) {
+        let localItemID = currentLocalItems[i][0]
+        let currentObject = currentLocalItems[i][1]
+        // console.log(`${currentLocalItems[i][0]}`)
+        console.log(localItemID)
+        console.log(currentObject)
+        if(localItemID === dbItemID) {
+            console.log(`${localItemID} --- ${dbItemID}`)
+            if(currentObject.isLiked) {
+                console.log(`TRUE - ${(currentObject.isLiked)}`)
+                console.log("You've already liked the")
+            } else {
+                console.log(`FALSE - ${(currentObject.isLiked)}`)
+                addLikeCountAndUpdateToDB(currentMsgLikeCount, pEl, dbItemID) 
+                currentObject["isLiked"] = true
+            }
+        } else {
+            console.log("nope")
+        }
+    localStorage.setItem("itms", JSON.stringify(currentLocalItems))
+
+    }
+
+
+}
+
+
+
 
 // Current problem I'm facing 
 // Incrementing ID by 1 for each element created 
@@ -237,7 +279,7 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
 // localstorage function 
     // loop through the array of item
         //    add a flag on each item to remember that it got liked or not by this user
-    // store it in local storage
+    // store it back in local storage
 //
 // function from 176 called in 142
 //  get items from localstorage - current issue - task- get items, update check if local storage reflects that.
@@ -247,16 +289,8 @@ function checkIfLikeIsClicked (messageID, currentMessageLikeCount, paraEl, dbIte
 //          do nothing
 //     else
 //      update isLiked in localStorage to true
-//      add count 
-//      update text with current count
-//      update number of likes in db
+//      addLikeCountAndUpdateToDB()
 // 
-//  if emoji was clicked before 
-//      (check in localStorage if isLiked is true)
-//      do nothing 
-//  else 
-//      add 1 count 
-//      update isLiked to true
 //      
 // 
 // 
