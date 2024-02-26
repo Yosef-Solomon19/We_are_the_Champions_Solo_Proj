@@ -228,7 +228,7 @@ function addLikeCountAndUpdateToDB (currentMessageLikeCount, paraEl, dbItemID) {
 function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
     console.log("Clicked")
     //get item from localStorage 
-    let currentLocalItems = JSON.parse(localStorage.getItem("itms"))
+    const currentLocalItems = JSON.parse(localStorage.getItem("itms"))
     // console.log(`Item-ID ${typeof(dbItemID)}`)
     console.log(`Clicked - here's local storage ${currentLocalItems}`)
     // console.log(currentLocalItems.length)
@@ -238,13 +238,13 @@ function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
         let localItemID = currentLocalItems[i][0]
         let currentObject = currentLocalItems[i][1]
         // console.log(`${currentLocalItems[i][0]}`)
-        console.log(localItemID)
-        console.log(currentObject)
+        // console.log(localItemID)
+        // console.log(currentObject)
         if(localItemID === dbItemID) {
             console.log(`${localItemID} --- ${dbItemID}`)
             if(currentObject.isLiked) {
                 console.log(`TRUE - ${(currentObject.isLiked)}`)
-                console.log("You've already liked the")
+                console.log("You've already liked the message") // Change it to alert ?
             } else {
                 console.log(`FALSE - ${(currentObject.isLiked)}`)
                 addLikeCountAndUpdateToDB(currentMsgLikeCount, pEl, dbItemID) 
