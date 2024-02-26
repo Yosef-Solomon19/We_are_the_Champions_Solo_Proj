@@ -218,8 +218,13 @@ function addLikeCountAndUpdateToDB (currentMessageLikeCount, paraEl, dbItemID) {
 
 }
 // Gets the item from local storage, compares IDs b/w local storage and DB
-// If true set .isLiked to true, to prevent user for liking again 
-// If false do nothing 
+// for loop through the ids in local storage
+//  if id in local storage and dbID match
+//      check isLiked, if true 
+//             don't call call addLikeCountAndUpdateToD
+//      else 
+//          call addLikeCountAndUpdateToD, set .isLiked to true, to prevent user for liking again 
+//  else do nothing 
 function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
     console.log("Clicked")
     //get item from localStorage 
