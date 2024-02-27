@@ -242,6 +242,7 @@ function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
         // console.log(currentObject)
         if(localItemID === dbItemID) {
             console.log(`${localItemID} --- ${dbItemID}`)
+            
             if(currentObject.isLiked) {
                 console.log(`TRUE - ${(currentObject.isLiked)}`)
                 console.log("You've already liked the message") // Change it to alert ?
@@ -254,7 +255,6 @@ function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
             console.log("nope")
         }
     localStorage.setItem("itms", JSON.stringify(currentLocalItems))
-
     }
 
 
