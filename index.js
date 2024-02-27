@@ -255,3 +255,6 @@ function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
     }
 }
 
+
+// New issue - 
+// When a new message is made, get the data from the DB and add it to the current local storage? 
