@@ -98,11 +98,11 @@ function clearInputField(inputEl) {
 }
 // appendItemToListEl(currentItemID, currentMessage, fromUser,toUser) 
 function appendItemToListEl(currentID, message, from, to, likeCount) {
-    let itemID = currentID   
-    let itemValue = message
-    let userSendingEndorsement = from
-    let userReceivingEndorsement = to
-    let messageLikeCount = likeCount
+    const itemID = currentID   
+    const itemValue = message
+    const userSendingEndorsement = from
+    const userReceivingEndorsement = to
+    const messageLikeCount = likeCount
     
 
     const createLi = document.createElement("li")
@@ -119,7 +119,7 @@ function appendItemToListEl(currentID, message, from, to, likeCount) {
     createLi.append(createPSenderEl, itemValue, receiverSection)
 
     createLi.addEventListener("dblclick", function(){
-        let exactLocationOfItemInDB = ref(database, `endorsements/${itemID}`)
+        const exactLocationOfItemInDB = ref(database, `endorsements/${itemID}`)
         remove(exactLocationOfItemInDB)
     })
     endorsementListEl.append(createLi)
@@ -149,13 +149,13 @@ function addDiv(Receiver, likeEl) {
 // let idCounter = 0
 function addLikeElAndUpdateCount(likeCount, currentID) {
     // console.log(`Current count - ${likeCount}`)
+    const counter = likeCount; 
     const newPEl = document.createElement("p")
     newPEl.classList = "add-like-style"
     // idCounter = idCounter + 1 
     // newPEl.setAttribute("id", "likeCounter-" + idCounter) // Add increment count here seems to have brought an unexpected result. 
     newPEl.textContent = `❤ ${likeCount}`  
-    
-    let counter = likeCount;    
+       
 
     newPEl.addEventListener("click", function(){
         // addLikeCountAndUpdateToDB(this.id, counter, newPEl, currentID) 
@@ -235,11 +235,8 @@ function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
     console.log(dbItemID)
     
     for (let i=0; i<currentLocalItems.length; i++) {
-        let localItemID = currentLocalItems[i][0]
-        let currentObject = currentLocalItems[i][1]
-        // console.log(`${currentLocalItems[i][0]}`)
-        // console.log(localItemID)
-        // console.log(currentObject)
+        const localItemID = currentLocalItems[i][0]
+        const currentObject = currentLocalItems[i][1]
         if(localItemID === dbItemID) {
             console.log(`${localItemID} --- ${dbItemID}`)
             
@@ -256,46 +253,5 @@ function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
         }
     localStorage.setItem("itms", JSON.stringify(currentLocalItems))
     }
-
-
 }
 
-
-
-
-// Current problem I'm facing 
-// Incrementing ID by 1 for each element created 
-// Issue - A) How to allow only one click for each message on display ? 
-//         B) When generating an ID for the like icon p element for each message, refreshing the page causes the id number to double, why?
-//         C) 
-// What works so far: 
-//          A) User can like and cannot like the same message, but it causes other messages to not be liked as well. Even if 
-//              user hasn't liked them before. 
-//          Should I try storing boolean values for each message in local storage? 
-
-
-
-// In the onvalue check if local storage exists 
-//      if it exists 
-//          do nothing 
-//      else 
-//         use localStorage function 
-
-// localstorage function 
-    // loop through the array of item
-        //    add a flag on each item to remember that it got liked or not by this user
-    // store it back in local storage
-//
-// function from 176 called in 142
-//  get items from localstorage - current issue - task- get items, update check if local storage reflects that.
-//  compare ID from db with item in local storage 
-//  if true 
-//     if isLiked from localStorage is true
-//          do nothing
-//     else
-//      update isLiked in localStorage to true
-//      addLikeCountAndUpdateToDB()
-// 
-//      
-// 
-// 
