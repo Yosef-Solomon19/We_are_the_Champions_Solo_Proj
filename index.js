@@ -23,15 +23,16 @@ const database = getDatabase(app)
 const endorsementsinDB = ref(database, "endorsements")
 
 publishBtnEl.addEventListener("click", function(){
-    let inputValue = textAreaEL.value
-    let receiver = endorsementReceiverEl.value
-    let sender = endorsementSenderEl.value
-    let userNamesWithMessage = endorsementDictionary(sender, receiver, inputValue)
+    const inputValue = textAreaEL.value
+    const receiver = endorsementReceiverEl.value
+    const sender = endorsementSenderEl.value
+    const userNamesWithMessage = endorsementDictionary(sender, receiver, inputValue)
     // console.log(userNameWithMessage)
     // console.log(endorsementDictionary(sender, receiver))
 
     push(endorsementsinDB, userNamesWithMessage)
     clearInputField(textAreaEL)
+    addNewEndorsementToLocalStorage(endorsementsinDB)
     // appendItemToListEl(inputValue)
 })
 
@@ -52,7 +53,7 @@ onValue(endorsementsinDB, function(snapshot) {
         }
         
         clearEndorsementListEl()
-        // console.log(itemArr)
+       // console.log(itemArr)
         for (let i = 0; i< reverseItemArr.length; i++) {
             let currentItem= reverseItemArr[i];
             // console.log(currentItem[1])
@@ -158,15 +159,13 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
        
 
     newPEl.addEventListener("click", function(){
+        console.log(`${currentID}`)
+        
         // addLikeCountAndUpdateToDB(this.id, counter, newPEl, currentID) 
         checkIfMessageIsLiked(counter, newPEl, currentID)
         // console.log(`this was clicked - ${this.id}`)   
         
     })
-    // console.log(localStorage.getItem("isClicked"))
-    // console.log(` - ${isClicked}`)
-    // newPEl.textContent = `❤ ${counter}`
-    // console.log(`Id count - ${idCounter}`)
     return newPEl
 }
 
@@ -185,36 +184,13 @@ function storeItemsInLocal(reverseItemArr){
 // function that adds the like count and updates it to the DB
 function addLikeCountAndUpdateToDB (currentMessageLikeCount, paraEl, dbItemID) {
     // Stores the item(s) associated with the ID in the DB
-    let exactLocationOfItemInDB = ref(database, `endorsements/${dbItemID}`)
-
-    // //get item from localStorage 
-    // let x = JSON.parse(localStorage.getItem("itms"))
-    // // console.log(`Item-ID ${typeof(dbItemID)}`)
-    // console.log(`Clicked - here's local storage ${x}`)
-    // console.log(x.length)
-    // console.log(dbItemID)
-    // for (let i=0; i<x.length; i++) {
-    //     console.log(`${x[i][0]}`)
-    // }
-    // // Get ID of the clicked message & compare it to the ID in the localStorage and retreive isliked value
-
-    // console.log(x[0])
+    const exactLocationOfItemInDB = ref(database, `endorsements/${dbItemID}`)
 
     // console.log(messageID)
     currentMessageLikeCount += 1 
     paraEl.textContent = `❤ ${ currentMessageLikeCount}`            
     update(exactLocationOfItemInDB, {likes: currentMessageLikeCount})
     console.log(`Adding ... ${currentMessageLikeCount}`)
-    
-    // if (!isClicked) {        
-    //     // isClicked = true
-    //     currentMessageLikeCount += 1 
-    //     paraEl.textContent = `❤ ${ currentMessageLikeCount}`            
-    //     update(exactLocationOfItemInDB, {likes: currentMessageLikeCount})
-    //     console.log(`Adding ... ${currentMessageLikeCount}`)
-    // } else {
-    //     console.log(`Count added already - ${currentMessageLikeCount}`) 
-    // }
 
 }
 // Gets the item from local storage, compares IDs b/w local storage and DB
@@ -230,13 +206,15 @@ function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
     //get item from localStorage 
     const currentLocalItems = JSON.parse(localStorage.getItem("itms"))
     // console.log(`Item-ID ${typeof(dbItemID)}`)
-    console.log(`Clicked - here's local storage ${currentLocalItems}`)
+    console.log(`Clicked - here's local storage ${JSON.stringify(currentLocalItems)}`)
     // console.log(currentLocalItems.length)
     console.log(dbItemID)
     
     for (let i=0; i<currentLocalItems.length; i++) {
         const localItemID = currentLocalItems[i][0]
+        console.log(localItemID)
         const currentObject = currentLocalItems[i][1]
+        console.log(localItemID)
         if(localItemID === dbItemID) {
             console.log(`${localItemID} --- ${dbItemID}`)
             
@@ -250,10 +228,44 @@ function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
             }
         } else {
             console.log("nope")
+            console.log(`${localItemID} --- ${dbItemID}`)
         }
     localStorage.setItem("itms", JSON.stringify(currentLocalItems))
     }
 }
+
+// create function 
+// When a new endorsement is made:
+// Get the ID and Object from the DB for the newly generated endorsement 
+// Get and parse the values stored in local storage 
+// add the new ID and object to the parsed values
+// set it back to local storage 
+// Create a function that adds newly published endorsement meesage to local storage 
+function addNewEndorsementToLocalStorage(endorsementsinDB) {
+    // Get and parse the values stored in local storage 
+    const currentLocalItems = JSON.parse(localStorage.getItem("itms"))
+
+    // Get the ID and Object from the DB for the newly generated endorsement 
+    onValue(endorsementsinDB, function(snapshot) {
+        const objectItems = snapshot.val()
+        const objectEntries = Object.entries(objectItems)
+        const itemKeys = Object.keys(objectItems)
+        const latestEndorsement = itemKeys[itemKeys.length - 1 ]
+        objectItems[latestEndorsement].isLiked = false
+
+
+        console.log(objectEntries[objectEntries.length - 1])
+        const lastestItmArr = objectEntries[objectEntries.length - 1]
+
+        // add the new ID and object to the parsed values
+        currentLocalItems.push(lastestItmArr)
+        console.log(`second local check ${JSON.stringify(currentLocalItems)}`)
+        // // set it back to local storage
+        localStorage.setItem("itms", JSON.stringify(currentLocalItems))
+
+    })
+}
+
 
 
 // New issue - 
