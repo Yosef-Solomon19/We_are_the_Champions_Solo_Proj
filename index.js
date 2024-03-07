@@ -1,5 +1,4 @@
 "use strict";
-"use strict";
 // Import to initialize app, get database, etc
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
 import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
@@ -28,13 +27,10 @@ publishBtnEl.addEventListener("click", function(){
     const receiver = endorsementReceiverEl.value
     const sender = endorsementSenderEl.value
     const userNamesWithMessage = endorsementDictionary(sender, receiver, inputValue)
-    // console.log(userNameWithMessage)
-    // console.log(endorsementDictionary(sender, receiver))
 
     push(endorsementsinDB, userNamesWithMessage)
     clearInputField(textAreaEL)
     addNewEndorsementToLocalStorage(endorsementsinDB)
-    // appendItemToListEl(inputValue)
 })
 
 onValue(endorsementsinDB, function(snapshot) {
@@ -54,10 +50,8 @@ onValue(endorsementsinDB, function(snapshot) {
         }
         
         clearEndorsementListEl()
-       // console.log(itemArr)
         for (let i = 0; i< reverseItemArr.length; i++) {
             let currentItem= reverseItemArr[i];
-            // console.log(currentItem[1])
             
             let currentItemID = reverseItemArr[i][0];
             
@@ -73,7 +67,6 @@ onValue(endorsementsinDB, function(snapshot) {
             let likeCountNum = currentObjectItems.likes
             
             appendItemToListEl(currentItemID, currentMessage, fromUser,toUser, likeCountNum) 
-            
         }
 
     } else {
@@ -91,7 +84,6 @@ function endorsementDictionary(from, to, message) {
     endorsement.likes = 0   
     return endorsement
 }
-
 
 function clearInputField(inputEl) {
     inputEl.value =""
@@ -135,37 +127,16 @@ function addDiv(Receiver, likeEl) {
     return newDiv
 }
 
-
-
-// Task 18/1/ - 19/1/2024 Combine addLikeEl with addLike Count, add single like count per user, Update new like count per message liked 
-//                        Add number of likes when clicked - done 
-//                        Add only one like count per user - involves storing isClicked variable in localStorage - in progress
-//                        Update the number of likes to Firebase - done 
-// reference - https://stackoverflow.com/questions/40589397/firebase-db-how-to-update-particular-value-of-child-in-firebase-database
-//           - https://stackoverflow.com/questions/2788191/how-to-check-whether-a-button-is-clicked-by-using-javascript
-//           - https://stackoverflow.com/questions/14107817/using-javascript-to-dynamically-create-dom-elements-with-incrementing-ids
-
-
-
-// Increment ID number for every new element that's made 
-// let idCounter = 0
 function addLikeElAndUpdateCount(likeCount, currentID) {
-    // console.log(`Current count - ${likeCount}`)
+
     const counter = likeCount; 
     const newPEl = document.createElement("p")
     newPEl.classList = "add-like-style"
-    // idCounter = idCounter + 1 
-    // newPEl.setAttribute("id", "likeCounter-" + idCounter) // Add increment count here seems to have brought an unexpected result. 
+
     newPEl.textContent = `❤ ${likeCount}`  
        
-
     newPEl.addEventListener("click", function(){
-        console.log(`${currentID}`)
-        
-        // addLikeCountAndUpdateToDB(this.id, counter, newPEl, currentID) 
         checkIfMessageIsLiked(counter, newPEl, currentID)
-        // console.log(`this was clicked - ${this.id}`)   
-        
     })
     return newPEl
 }
@@ -174,42 +145,37 @@ function addLikeElAndUpdateCount(likeCount, currentID) {
 function storeItemsInLocal(reverseItemArr){
     // loop through the array of item
     for (let i = 0; i < reverseItemArr.length; i++) {
-        //    add a flag on each item to remember that it got liked or not by this user
+        //add a flag on each item to remember that it got liked or not by this user
         reverseItemArr[i][1].isLiked = false
     }
     // store it in local storage
     localStorage.setItem('itms', JSON.stringify(reverseItemArr))
 }
 
-// let isClicked = false
 // function that adds the like count and updates it to the DB
 function addLikeCountAndUpdateToDB (currentMessageLikeCount, paraEl, dbItemID) {
     // Stores the item(s) associated with the ID in the DB
     const exactLocationOfItemInDB = ref(database, `endorsements/${dbItemID}`)
 
-    // console.log(messageID)
     currentMessageLikeCount += 1 
     paraEl.textContent = `❤ ${ currentMessageLikeCount}`            
     update(exactLocationOfItemInDB, {likes: currentMessageLikeCount})
     console.log(`Adding ... ${currentMessageLikeCount}`)
 
 }
+// Practicing Pseudocode 
 // Gets the item from local storage, compares IDs b/w local storage and DB
 // for loop through the ids in local storage
 //  if id in local storage and dbID match
 //      check isLiked, if true 
 //             don't call call addLikeCountAndUpdateToD
 //      else 
-//          call addLikeCountAndUpdateToD, set .isLiked to true, to prevent user for liking again 
+//          call addLikeCountAndUpdateToD, set .isLiked to true, to prevent user liking again 
 //  else do nothing 
 function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
     console.log("Clicked")
     //get item from localStorage 
     const currentLocalItems = JSON.parse(localStorage.getItem("itms"))
-    // console.log(`Item-ID ${typeof(dbItemID)}`)
-    console.log(`Clicked - here's local storage ${JSON.stringify(currentLocalItems)}`)
-    // console.log(currentLocalItems.length)
-    console.log(dbItemID)
     
     for (let i=0; i<currentLocalItems.length; i++) {
         const localItemID = currentLocalItems[i][0]
@@ -235,6 +201,7 @@ function checkIfMessageIsLiked (currentMsgLikeCount, pEl, dbItemID) {
     }
 }
 
+// Practicing Pseudocode 
 // create function 
 // When a new endorsement is made:
 // Get the ID and Object from the DB for the newly generated endorsement 
@@ -254,20 +221,14 @@ function addNewEndorsementToLocalStorage(endorsementsinDB) {
         const latestEndorsement = itemKeys[itemKeys.length - 1 ]
         objectItems[latestEndorsement].isLiked = false
 
-
-        console.log(objectEntries[objectEntries.length - 1])
         const lastestItmArr = objectEntries[objectEntries.length - 1]
 
         // add the new ID and object to the parsed values
         currentLocalItems.push(lastestItmArr)
         console.log(`second local check ${JSON.stringify(currentLocalItems)}`)
-        // // set it back to local storage
+        //set it back to local storage
         localStorage.setItem("itms", JSON.stringify(currentLocalItems))
 
     })
 }
 
-
-
-// New issue - 
-// When a new message is made, get the data from the DB and add it to the current local storage? 
